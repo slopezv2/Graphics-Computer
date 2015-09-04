@@ -28,15 +28,27 @@ public class UVNMatrix extends Matrix4x4 {
         Vector4 v = Vector4.crossProduct(n, u);
         
         // Insert vector u, v and n in the matrix HERE   ***
-        
+        matrix[0][0] = u.getX();
+        matrix[0][1] = u.getY();
+        matrix[0][2] = u.getZ();
+        matrix[1][0] = v.getX();
+        matrix[1][1] = v.getY();
+        matrix[1][2] = v.getZ();
+        matrix[2][0] = n.getX();
+        matrix[2][1] = n.getY();
+        matrix[2][2] = n.getZ();
+        matrix[3][0] = 0;
+        matrix[3][1] = 0;
+        matrix[3][2] = 0;
         // Compute u . P0, v . P0, n . P0
         double dx = - Vector4.dotProduct(u, camPos);
         double dy = - Vector4.dotProduct(v, camPos);
         double dz = - Vector4.dotProduct(n, camPos);
         
         // Insert dx, dy and dz in the matrix HERE ***
-        
-                
+        matrix[0][3] = dx;
+        matrix[1][3] = dy;
+        matrix[2][3] = dz;
         if(DEBUG) {
             System.out.println("u: " + u); //System.out.println(u.magnitude());
             System.out.println("v: " + v); //System.out.println(v.magnitude());
@@ -49,9 +61,9 @@ public class UVNMatrix extends Matrix4x4 {
     }
     
     public static void main(String[] args) {
-        Vector4 camPos = new Vector4(10, 10, 10);
+        Vector4 camPos = new Vector4(200, 100, -200);
         Vector4 lookingTo = new Vector4(0, 0, 0);
-        Vector4 V = new Vector4(0, 1, 0);
+        Vector4 V = new Vector4(100, 100, -20);
         UVNMatrix uvn = new UVNMatrix(camPos, lookingTo, V);
         
     }

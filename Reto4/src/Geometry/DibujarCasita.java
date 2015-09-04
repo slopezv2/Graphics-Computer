@@ -137,9 +137,9 @@ public class DibujarCasita extends JPanel {
         //Translation m1 = new Translation(60d, 60d, 60d);
         //Projection m2 = new Projection(-200);
         UVNMatrix m3 = new UVNMatrix(
-                new Vector4(60, 10, 200),    // camera position
-                new Vector4(10, 30, 350),        // look-at 
-                new Vector4(1, 0, -1)            // up vector
+                new Vector4(0, 0, 0),    // camera position
+                new Vector4(100, 100, 350),        // look-at 
+                new Vector4(1, 0, 1)            // up vector
         );
         dc.po.transformObject(m3);
 
