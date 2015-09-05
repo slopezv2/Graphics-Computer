@@ -20,6 +20,8 @@ import Math.Translation;
 import Math.Vector4;
 import Math.Projection;
 import Math.UVNMatrix;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * This example reads the description of an object (a polygon) from a file
@@ -27,13 +29,16 @@ import Math.UVNMatrix;
  * 
  * @author htrefftz
  */
-public class DibujarCasita extends JPanel {
+public class DibujarCasita extends JPanel  implements KeyListener{
 
     PolygonObject po;
 
     public static int FRAME_WIDTH = 600;
     public static int FRAME_HEIGHT = 400;
-    
+    private int mvVert = 0;
+    private int mvHor = 0;
+
+    private final int chngValue = 10;
     public static int AXIS_SIZE = 50;
 
     Dimension size;
@@ -91,6 +96,38 @@ public class DibujarCasita extends JPanel {
         g2d.drawLine(x1, y1, x2, y2);
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(""+e.getKeyCode());
+        if(KeyEvent.VK_UP == e.getKeyCode()){
+            mvVert += chngValue;
+        }else if(KeyEvent.VK_DOWN == e.getKeyCode()){
+            mvVert -= chngValue;
+        }else if(KeyEvent.VK_LEFT == e.getKeyCode()){
+            mvHor -= chngValue; 
+        }else if(KeyEvent.VK_RIGHT == e.getKeyCode()){
+            mvHor += chngValue; 
+        }
+        readObjectDescription("casita3D.txt");
+        //Translation m1 = new Translation(60d+mvHor, 60d+mvVert, -350d);
+        UVNMatrix m3 = new UVNMatrix(
+                new Vector4(0, 0, -200),    // camera position
+                new Vector4(0+mvHor, 0+mvVert, -350),        // look-at 
+                new Vector4(0, 1, 0)            // up vector
+        );
+        po.transformObject(m3);
+        repaint();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {      
+    }
+    
     /**
      * Read the description of the object from the given file
      * @param fileName Name of the file with the object description
@@ -137,9 +174,9 @@ public class DibujarCasita extends JPanel {
         //Translation m1 = new Translation(60d, 60d, 60d);
         //Projection m2 = new Projection(-200);
         UVNMatrix m3 = new UVNMatrix(
-                new Vector4(0, 0, 0),    // camera position
-                new Vector4(100, 100, 350),        // look-at 
-                new Vector4(1, 0, 1)            // up vector
+                new Vector4(200, 100, -200),    // camera position
+                new Vector4(0, 0, -350),        // look-at 
+                new Vector4(0, 1, 0)            // up vector
         );
         dc.po.transformObject(m3);
 
@@ -148,7 +185,11 @@ public class DibujarCasita extends JPanel {
         // Al cerrar el frame, termina la ejecución de este programa
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Agregar un JPanel que se llama Points (esta clase)
+        dc.addKeyListener(dc);
+        dc.setFocusable(true);
         frame.add(dc);
+
+        
         // Asignarle tamaño
         frame.setSize(DibujarCasita.FRAME_WIDTH, DibujarCasita.FRAME_HEIGHT);
         // Poner el frame en el centro de la pantalla
