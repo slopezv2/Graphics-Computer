@@ -103,7 +103,6 @@ public class DibujarCasita extends JPanel  implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(""+e.getKeyCode());
         if(KeyEvent.VK_UP == e.getKeyCode()){
             mvVert += chngValue;
         }else if(KeyEvent.VK_DOWN == e.getKeyCode()){
@@ -184,12 +183,10 @@ public class DibujarCasita extends JPanel  implements KeyListener{
         JFrame frame = new JFrame("Lines");
         // Al cerrar el frame, termina la ejecución de este programa
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Agregar un JPanel que se llama Points (esta clase)
+        // Agregar el listener de las teclas
         dc.addKeyListener(dc);
         dc.setFocusable(true);
         frame.add(dc);
-
-        
         // Asignarle tamaño
         frame.setSize(DibujarCasita.FRAME_WIDTH, DibujarCasita.FRAME_HEIGHT);
         // Poner el frame en el centro de la pantalla
