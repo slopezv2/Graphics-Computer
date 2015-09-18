@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.awt.Toolkit;
 /**
  *
  * @author Sebastian-PC
@@ -21,7 +22,9 @@ public abstract class  Figure {
     }
 
     public void drawObject(Graphics2D g) throws IOException{
-        Image originalImage = ImageIO.read(new File(this.imgAddress));
+        Toolkit t = Toolkit.getDefaultToolkit();
+        
+        Image originalImage = t.getImage(imgAddress);
         g.drawImage(originalImage,this.coordXcentral,this.coordYCentral, null);
     }
     public int getCoordXcentral() {

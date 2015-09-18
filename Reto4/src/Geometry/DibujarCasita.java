@@ -37,7 +37,7 @@ public class DibujarCasita extends JPanel  implements KeyListener{
     public static int FRAME_HEIGHT = 400;
     private int mvVert = 0;
     private int mvHor = 0;
-
+    private int mvZ = 0;
     private final int chngValue = 10;
     public static int AXIS_SIZE = 50;
 
@@ -111,12 +111,16 @@ public class DibujarCasita extends JPanel  implements KeyListener{
             mvHor -= chngValue; 
         }else if(KeyEvent.VK_RIGHT == e.getKeyCode()){
             mvHor += chngValue; 
+        }else if(KeyEvent.VK_ADD == e.getKeyCode()){
+            mvZ += (chngValue*100);
+        }else if(KeyEvent.VK_MINUS == e.getKeyCode()){
+            mvZ -= (chngValue*100);
         }
         readObjectDescription("casita3D.txt");
         //Translation m1 = new Translation(60d+mvHor, 60d+mvVert, -350d);
         UVNMatrix m3 = new UVNMatrix(
-                new Vector4(0, 0, -200),    // camera position
-                new Vector4(0+mvHor, 0+mvVert, -350),        // look-at 
+                new Vector4(200+mvHor, 100+mvVert, -200+mvZ),    // camera position
+                new Vector4(0, 0, -350),        // look-at 
                 new Vector4(0, 1, 0)            // up vector
         );
         po.transformObject(m3);

@@ -13,7 +13,6 @@ public class HellBoy extends Ghost{
 
     public HellBoy() {
         super();
-        this.imgAddress="C:\\Users\\sebastian\\Documents\\NetBeansProjects\\Juego\\src\\res\\img\\porfavor.png";
     }
     
     
